@@ -6,7 +6,36 @@
     <div>
         <h1></h1>
         <h3>Kontroler: {{ post.controller }}</h3>
-        <p>Typ urządzenia: {{ post.unit_type }}</p>
+        <p>Typ urzadzenia: Anber </p>
+        <p>Numer seryjny: {{ post.serial_number }}</p>
+        <p>Uwagi:{{ post.comment}}</p>
+        {% if post.inspection_1 == True %}
+            <p>Inspekcja nr1: pozytyw </p>
+        {% elif post.inspection_1 == False %}
+            <p>Inspekcja nr1: negatyw </p>
+         {% endif %}
+
+        {% if post.inspection_2 == True %}
+            <p>Inspekcja nr1: pozytyw </p>
+        {% elif post.inspection_2 == False %}
+            <p>Inspekcja nr1: negatyw </p>
+         {% endif %}
+
+        {% if post.inspection_3 == True %}
+            <p>Inspekcja nr1: pozytyw </p>
+        {% elif post.inspection_3 == False %}
+            <p>Inspekcja nr1: negatyw </p>
+
+        {% endif %}
+    </div>
+{% endfor %}
+
+
+{% for post in posts_1 %}
+    <div>
+        <h1></h1>
+        <h3>Kontroler: {{ post.controller }}</h3>
+        <p>Typ urządzenia: KCX </p>
         <p>Numer seryjny: {{ post.serial_number }}</p>
         <p>Uwagi:{{ post.comment}}</p>
         {% if post.inspection_1 == True %}
