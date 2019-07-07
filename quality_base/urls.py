@@ -4,7 +4,7 @@ from . import views
 
 app_name ='quality_control'
 urlpatterns = [
-    path('main_report', views.main_report, name='main_report'),
+    path('', views.main_report, name='main_report'),
     path('<int:year>/<int:month>/<int:day>/',
          views.detail_report,name='detail_report'),
 
