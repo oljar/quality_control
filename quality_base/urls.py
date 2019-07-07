@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+
 app_name ='quality_control'
 urlpatterns = [
     path('main_report', views.main_report, name='main_report'),
@@ -9,4 +10,5 @@ urlpatterns = [
 
     path('<int:year>/<int:month>/<int:day>/<person>',
          views.controller_raport, name='controller_report')
+
 ]
