@@ -2,7 +2,7 @@
 *.pyc
 *¬
 myvenv
-db.sqlite3
+
 *.pdf
 
 .DS_Store
