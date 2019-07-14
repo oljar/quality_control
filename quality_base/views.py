@@ -5,14 +5,21 @@ from .models import KCX
 from itertools import chain
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from .forms import AmberForm
+from django .shortcuts import redirect
+from django.contrib import messages
 
 # Create your views here.
+
+
+
+
 
 @login_required
 def main_report(request):
 
-    posts_1 = Amber.objects.all()
-    posts_2=  KCX.objects.all()
+    posts_1 = Amber.objects.order_by('-checked_date')
+    posts_2=  KCX.objects.order_by('-checked_date')
     object_list = list(chain(posts_1, posts_2))
     paginator = Paginator(object_list,3)
     page = request.GET.get('page')
@@ -76,3 +83,18 @@ def controller_raport (request,year,month,day,person):
         posts = paginator.page(paginator.num_pages)
 
     return  render(request,'quality_base/common/controller_report.html',{'posts' : posts} )
+
+@login_required
+def new_amber(request):
+    if request.method == "POST":
+        form = AmberForm(request.POST)
+        if form.is_valid():
+            amber=form.save(commit=False)
+            amber.controller = request.user
+            amber.checked_date=timezone.now()
+            amber.save()
+            messages.success(request, 'Zapisano ostatni wpis')
+            return redirect('/',name='main_report')
+    else:
+        form=AmberForm()
+    return render (request,'quality_base/common/amber_edit.html',{'form':form})

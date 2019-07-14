@@ -1,14 +1,21 @@
 <div>
     <h1> Raport kontroli jakości </h1>
 </div>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 
 {% for post in posts %}
     <div>
         <h1></h1>
         <h3>Kontroler: {{ post.controller }}</h3>
-        <p>Typ urzadzenia: Anber </p>
+        <p>Typ urzadzenia: Amber </p>
         <p>Numer seryjny: {{ post.serial_number }}</p>
-        <p>Uwagi:{{ post.comment}}</p>
+        <p>Uwagi:{{ post.comments}}</p>
         {% if post.inspection_1 == True %}
             <p>Inspekcja nr1: pozytyw </p>
         {% elif post.inspection_1 == False %}
@@ -25,6 +32,9 @@
             <p>Inspekcja nr1: pozytyw </p>
         {% elif post.inspection_3 == False %}
             <p>Inspekcja nr1: negatyw </p>
+
+        <p>Data sprawdzenia: {{ post.checked_date }}</p>
+
 
         {% endif %}
     </div>
@@ -37,7 +47,7 @@
         <h3>Kontroler: {{ post.controller }}</h3>
         <p>Typ urządzenia: KCX </p>
         <p>Numer seryjny: {{ post.serial_number }}</p>
-        <p>Uwagi:{{ post.comment}}</p>
+        <p>Uwagi:{{ post.comments}}</p>
         {% if post.inspection_1 == True %}
             <p>Inspekcja nr1: pozytyw </p>
         {% elif post.inspection_1 == False %}
@@ -54,6 +64,8 @@
             <p>Inspekcja nr1: pozytyw </p>
         {% elif post.inspection_3 == False %}
             <p>Inspekcja nr1: negatyw </p>
+
+        <p>Data sprawdzenia: {{ post.checked_date }}</p>
 
         {% endif %}
 

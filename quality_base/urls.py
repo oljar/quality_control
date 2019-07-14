@@ -9,6 +9,7 @@ urlpatterns = [
          views.detail_report,name='detail_report'),
 
     path('<int:year>/<int:month>/<int:day>/<person>',
-         views.controller_raport, name='controller_report')
+         views.controller_raport, name='controller_report'),
 
+    path('new_amber',views.new_amber, name='new_amber')
 ]
