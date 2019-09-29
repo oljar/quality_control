@@ -8,7 +8,6 @@
     {% endfor %}
 </ul>
 {% endif %}
-
 {% for post in posts %}
     <div>
         <h1></h1>
@@ -69,8 +68,22 @@
 
         {% endif %}
 
+
     </div>
 
 {% endfor %}
+
+
+ <p>Uploaded files:</p>
+  <ul>
+    {% for obj in documents %}
+      <li>
+        <a href="{{ obj.document.url }}">{{ obj.document.name }}</a>
+        <small>(Uploaded at: {{ obj.uploaded_at }})</small>
+        <a>( Description: {{ obj.description }} )</a>
+
+      </li>
+    {% endfor %}
+  </ul>
 
  {% include "pagination.html" with page=posts %}

@@ -1,3 +1,8 @@
+from datetime import date
+
+from .models import Document
+from .forms import DocumentForm
+
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from .models import Amber
@@ -20,6 +25,8 @@ def main_report(request):
 
     posts_1 = Amber.objects.order_by('-checked_date')
     posts_2=  KCX.objects.order_by('-checked_date')
+    documents = Document.objects.all()
+
     object_list = list(chain(posts_1, posts_2))
     paginator = Paginator(object_list,3)
     page = request.GET.get('page')
@@ -31,7 +38,7 @@ def main_report(request):
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
 
-    return render(request, 'quality_base/common/main_report.html', {'page':page,'posts': posts })
+    return render(request, 'quality_base/common/main_report.html', {'page':page, 'posts':posts, 'documents':documents})
 
 @login_required
 def detail_report (request,year,month,day):
@@ -86,15 +93,21 @@ def controller_raport (request,year,month,day,person):
 
 @login_required
 def new_amber(request):
+    documents = Document.objects.all()
     if request.method == "POST":
-        form = AmberForm(request.POST)
-        if form.is_valid():
-            amber=form.save(commit=False)
+       form_1 = AmberForm(request.POST)
+       form_2 = DocumentForm(request.POST, request.FILES)
+       if form_1.is_valid():
+            amber=form_1.save(commit=False)
             amber.controller = request.user
             amber.checked_date=timezone.now()
             amber.save()
             messages.success(request, 'Zapisano ostatni wpis')
-            return redirect('/',name='main_report')
+
+       if  form_2.is_valid():
+           form_2.save()
+       return redirect('/',name='main_report')
     else:
-        form=AmberForm()
-    return render (request,'quality_base/common/amber_edit.html',{'form':form})
+        form_1=AmberForm()
+        form_2=DocumentForm()
+        return render (request,'quality_base/common/amber_edit.html',{'form_1':form_1,'form_2':form_2})

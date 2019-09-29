@@ -1,11 +1,16 @@
 <h2> New Amber </h2>
-<form method="POST" enctype="multipart/form-data">
+<form method="POST" class="post-form">
 
     {% csrf_token %}
 
     {{ form_1.as_p }}
 
+<button type="submit" class="save btn btn-default">Save</button>
 
+</form>
+
+
+<form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form_2.as_p }}
 <button type="submit">Upload</button>

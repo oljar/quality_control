@@ -7,6 +7,8 @@ import django.urls.resolvers
 
 
 
+
+
 class Amber (models.Model):
 
     controller = models.ForeignKey('auth.User', on_delete=models.CASCADE)
@@ -68,3 +70,11 @@ class KCX (models.Model):
                               self.checked_date.strftime('%m'),
                               self.checked_date.strftimw('%d')])
 
+
+
+class Document(models.Model):
+
+    description = models.CharField(max_length = 255, blank = True)
+    document = models.FileField(upload_to = 'documents/%Y/%m/%d')
+    uploaded_at = models.DateTimeField(auto_now_add = True)
+    objects = models.Manager()
